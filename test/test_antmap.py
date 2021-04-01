@@ -174,5 +174,22 @@ def test_get_ant_view_and_actions(ant_map_w_good_file):
     }
 
 
+def test_get_ant_finished(ant_map_w_good_file):
+    ant_map = ant_map_w_good_file
+    ant_map.reset()
+
+    ant_map.ant_advance()
+    ant_map.ant_advance()
+
+    assert ant_map.ant_advance() == {
+        "loc": (3,2,AntMap.EAST),
+        "view": {
+            "left":     None,
+            "middle":   None,
+            "right":    None
+        },
+        "finished": True
+    }
+
 #def test_map_load(ant_map_w_bad_file):
 #    assert ant_map_w_file
