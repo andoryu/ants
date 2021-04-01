@@ -129,7 +129,8 @@ def test_get_ant_view_and_actions(ant_map_w_good_file):
             "left":     False,
             "middle":   True,
             "right":    False
-        }
+        },
+        "finished": False
     }
 
     assert ant_map.ant_rotate_ccw() == {
@@ -138,7 +139,8 @@ def test_get_ant_view_and_actions(ant_map_w_good_file):
             "left":     False,
             "middle":   False,
             "right":    False
-        }
+        },
+        "finished": False
     }
 
     assert ant_map.ant_advance() == {
@@ -147,7 +149,8 @@ def test_get_ant_view_and_actions(ant_map_w_good_file):
             "left":     False,
             "middle":   False,
             "right":    False
-        }
+        },
+        "finished": False
     }
 
     assert ant_map.ant_advance() == {
@@ -156,7 +159,8 @@ def test_get_ant_view_and_actions(ant_map_w_good_file):
             "left":     None,
             "middle":   None,
             "right":    None
-        }
+        },
+        "finished": False
     }
 
     assert ant_map.ant_rotate_cw() == {
@@ -165,7 +169,8 @@ def test_get_ant_view_and_actions(ant_map_w_good_file):
             "left":     None,
             "middle":   False,
             "right":    False
-        }
+        },
+        "finished": False
     }
 
 

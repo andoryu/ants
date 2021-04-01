@@ -54,9 +54,13 @@ class AntMap:
         self.ant_location = (new_x, new_y, facing)
 
         #return location and view info
+        return self._ant_result()
+
+    def _ant_result(self):
         return {
             "loc":  self.ant_location,
-            "view": self.get_ant_view()
+            "view": self.get_ant_view(),
+            "finished" : [self.ant_location[0], self.ant_location[1]] == self.end_location
         }
 
 
@@ -75,10 +79,7 @@ class AntMap:
         self.ant_location = (self.ant_location[0], self.ant_location[1], new_facing)
 
         #return location and view info
-        return {
-            "loc":  self.ant_location,
-            "view": self.get_ant_view()
-        }
+        return self._ant_result()
 
 
     def ant_rotate_cw(self):
@@ -96,10 +97,7 @@ class AntMap:
         self.ant_location = (self.ant_location[0], self.ant_location[1], new_facing)
 
         #return location and view info
-        return {
-            "loc":  self.ant_location,
-            "view": self.get_ant_view()
-        }
+        return self._ant_result()
 
     def _convert_ant_facing(self, facing):
         if facing.upper() == "NORTH":
