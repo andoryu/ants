@@ -1,4 +1,6 @@
 import json
+from pprint import pprint
+import sys
 
 
 NORTH = 1
@@ -19,6 +21,9 @@ class AntMap:
         self.style = BOUNDED
         self.name = "unnamed"
         self.start_location = [0,0]
+        self.trail = []
+        self.trail_pos = 0
+        self.trail_len = 0
 
         self.loaded = False
 
@@ -44,21 +49,28 @@ class AntMap:
         if new_x < 0:
             new_x = 0
         elif new_x >= self.size[0]:
-            new_x = self.size[0]
+            new_x = self.size[0]-1
 
         if new_y < 0:
             new_y = 0
         elif new_y >= self.size[1]:
-            new_y = self.size[1]
+            new_y = self.size[1]-1
 
         self.ant_location = (new_x, new_y, facing)
+
+
+        if self.trail_pos < self.trail_len-1:
+            if self.trail[self.trail_pos + 1] == [new_x, new_y]:
+                self.trail_pos = self.trail_pos + 1
 
         #return location and view info
         return self._ant_result()
 
+
     def _ant_result(self):
         return {
             "loc":  self.ant_location,
+            "pos":  self.trail_pos,
             "view": self.get_ant_view(),
             "finished" : [self.ant_location[0], self.ant_location[1]] == self.end_location
         }
@@ -169,13 +181,13 @@ class AntMap:
             self.size = tuple(cfg["size"])
 
             #setup the map size
-            #self.map = ( () for _ in range(self.size[1]) )
-            col = list( False for _ in range(self.size[1]) )
-            self.map = list(col for _ in range(self.size[0]))
+            self.map = list( list( False for _ in range(self.size[1]) )
+                for _ in range(self.size[0]))
 
             #load the trail
-            trail = cfg["trail"]
-            for pheremone in trail:
+            self.trail = cfg["trail"]
+            self.trail_len = len(cfg["trail"])
+            for pheremone in self.trail:
                 self.map[pheremone[0]][pheremone[1]] = True
 
             #start location
@@ -191,11 +203,11 @@ class AntMap:
             return True
 
         except FileNotFoundError:
-            print("File " + map_definition_file + "not found.")
+            print("File " + map_definition_file + " not found.")
             return False
 
         except json.decoder.JSONDecodeError as e:
-            print("File " + map_definition_file + "is not a valid JSON file.")
+            print("File " + map_definition_file + " is not a valid JSON file.")
             print(e)
             return False
 
@@ -211,11 +223,19 @@ class AntMap:
     def load_state(self):
         return self.loaded
 
+    def pretty_print(self):
+        pprint(self.map)
+
     def raw_print(self):
         for y in range(self.size[1]):
             for x in range(self.size[0]):
                 if self.map[x][y]:
-                    print("*", end="")
+                    if [x,y] == self.start_location:
+                        print("@", end="")
+                    elif [x,y] == self.end_location:
+                        print("#", end="")
+                    else:
+                        print("*", end="")
                 else:
                     print("0", end="")
             print("")
@@ -223,6 +243,8 @@ class AntMap:
     def reset(self):
         self.ant_location = (self.start_location[0], self.start_location[1],
             self.ant_facing)
+
+        self.trail_pos = 0
 
 
 if __name__ == "__main__":

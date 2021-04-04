@@ -5,7 +5,7 @@ sys.path.append("./src")
 
 import pytest
 
-import AntMap
+import AntTrail.AntMap as AntMap
 
 
 @pytest.fixture
@@ -125,6 +125,7 @@ def test_get_ant_view_and_actions(ant_map_w_good_file):
 
     assert ant_map.ant_advance() == {
         "loc": (1,2,AntMap.EAST),
+        "pos": 1,
         "view": {
             "left":     False,
             "middle":   True,
@@ -135,6 +136,7 @@ def test_get_ant_view_and_actions(ant_map_w_good_file):
 
     assert ant_map.ant_rotate_ccw() == {
         "loc": (1,2,AntMap.NORTH),
+        "pos": 1,
         "view": {
             "left":     False,
             "middle":   False,
@@ -145,6 +147,7 @@ def test_get_ant_view_and_actions(ant_map_w_good_file):
 
     assert ant_map.ant_advance() == {
         "loc": (1,1,AntMap.NORTH),
+        "pos": 1,
         "view": {
             "left":     False,
             "middle":   False,
@@ -155,6 +158,7 @@ def test_get_ant_view_and_actions(ant_map_w_good_file):
 
     assert ant_map.ant_advance() == {
         "loc": (1,0,AntMap.NORTH),
+        "pos": 1,
         "view": {
             "left":     None,
             "middle":   None,
@@ -165,6 +169,7 @@ def test_get_ant_view_and_actions(ant_map_w_good_file):
 
     assert ant_map.ant_rotate_cw() == {
         "loc": (1,0,AntMap.EAST),
+        "pos": 1,
         "view": {
             "left":     None,
             "middle":   False,
@@ -180,9 +185,28 @@ def test_get_ant_finished(ant_map_w_good_file):
 
     ant_map.ant_advance()
     ant_map.ant_advance()
+    result = ant_map.ant_advance()
+
+    assert result["loc"] == (3,2,AntMap.EAST)
+    assert result["pos"] == 3
+    assert result["view"] == {
+        "left":     None,
+        "middle":   None,
+        "right":    None
+    }
+    assert result["finished"] == True
+
+
+def test_ant_progress_at_edge(ant_map_w_good_file):
+    ant_map = ant_map_w_good_file
+    ant_map.reset()
+
+    ant_map.ant_location = (3,2, AntMap.EAST)
+    ant_map.trail_pos = 3
 
     assert ant_map.ant_advance() == {
         "loc": (3,2,AntMap.EAST),
+        "pos": 3,
         "view": {
             "left":     None,
             "middle":   None,

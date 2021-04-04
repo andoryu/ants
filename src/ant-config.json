@@ -1,0 +1,7 @@
+{
+  "map": "./simple-map.json",
+  "step-limit": 84,
+
+
+  "ant-nest": "AntTrail.GAFSM"
+}
