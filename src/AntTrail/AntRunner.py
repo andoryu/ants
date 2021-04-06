@@ -62,7 +62,7 @@ class AntRunner:
                     #run the successfull ants with full logging.
                     for ant in successfull_ants:
                         print("Ant: Epoch {}, ID {}".format(ant.epoch, ant.id))
-                        #ant = self.ant_nest.ants[ant_res['id']]
+                        #print(ant.export())
                         #self.run_ant(ant, log=True)
                     break
 

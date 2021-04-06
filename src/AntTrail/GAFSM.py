@@ -1,5 +1,5 @@
 #Genetic Algorithm - Finite State Machine
-
+import json
 from pprint import pprint
 import secrets
 
@@ -69,6 +69,21 @@ class FSMAnt:
     def reset(self):
         self.state = 0
 
+    def export(self):
+        #create the serialisable format for the ant
+        exp = {}
+        exp['id'] = self.id
+        exp['epoch'] = self.epoch
+        exp['genes'] = []
+
+        for gene in self.genes:
+            gene_data = {}
+            gene_data['action'] = gene.action.name
+            gene_data['transitions'] = gene.transitions
+
+            exp['genes'].append(gene_data)
+
+        return json.dumps(exp)
 
     def __repr__(self):
         repr = "<FSMAnt: ID: {}\n".format(self.id, self.genes)
