@@ -1,0 +1,22 @@
+{
+  "id": 1000,
+  "epoch": 27,
+  "genes": [
+    {"action": "ROT_CCW", "transitions": [3, 8, 2, 3, 6, 9, 15, 7]},
+    {"action": "ROT_CCW", "transitions": [11, 6, 5, 4, 4, 13, 12, 9]},
+    {"action": "ADVANCE", "transitions": [9, 2, 2, 6, 14, 12, 6, 9]},
+    {"action": "ROT_CCW", "transitions": [4, 7, 12, 9, 4, 14, 0, 5]},
+    {"action": "ADVANCE", "transitions": [7, 11, 9, 1, 4, 2, 3, 11]},
+    {"action": "ROT_CCW", "transitions": [7, 14, 8, 12, 6, 13, 13, 3]},
+    {"action": "ADVANCE", "transitions": [0, 10, 10, 6, 0, 10, 0, 5]},
+    {"action": "ROT_CCW", "transitions": [0, 5, 13, 5, 11, 3, 3, 11]},
+    {"action": "ROT_CW", "transitions": [4, 11, 3, 9, 13, 1, 7, 6]},
+    {"action": "ADVANCE", "transitions": [5, 12, 6, 10, 3, 3, 7, 7]},
+    {"action": "ADVANCE", "transitions": [7, 2, 8, 8, 3, 10, 2, 13]},
+    {"action": "ADVANCE", "transitions": [4, 7, 12, 9, 4, 0, 8, 12]},
+    {"action": "ROT_CCW", "transitions": [1, 2, 7, 5, 9, 14, 6, 6]},
+    {"action": "ROT_CW", "transitions": [1, 8, 11, 8, 6, 4, 12, 5]},
+    {"action": "ADVANCE", "transitions": [10, 15, 8, 15, 6, 0, 2, 8]},
+    {"action": "ROT_CCW", "transitions": [10, 12, 13, 14, 14, 14, 9, 4]}
+  ]
+}

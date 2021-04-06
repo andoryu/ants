@@ -1,0 +1,52 @@
+<!doctype html>
+<title>SVG Test</title>
+
+<head>
+  <link rel="stylesheet" href="/css/master.css">
+
+  <script type="text/javascript">
+    window.onload = function() {
+      var antbrain = document.getElementsByName("antbrain")[0];
+      console.log(antbrain);
+      var antsvg   = antbrain.firstElementChild;
+      console.log(antsvg);
+      console.log(antsvg.height);
+
+      antsvg.setAttribute("height", "500pt");
+      console.log(antsvg.height);
+    }
+  </script>
+
+</head>
+
+<h1>SVG Testing</h1>
+<div class="trail">
+  <svg version="1.1"
+    baseProfile="full"
+     width="1000" height="250"
+     xmlns="http://www.w3.org/2000/svg">
+    {% for j in range(map['size'][1]) %}
+      {% for i in range(map['size'][0]) %}
+        {% if [i,j] in map['trail'] %}
+          <rect x="{{i*15}}" y="{{j*15}}" width="15" height="15" stroke="black" fill="yellow" stroke-width="1"/>
+        {% else %}
+          <rect x="{{i*15}}" y="{{j*15}}" width="15" height="15" stroke="black" fill="#93cf8e" stroke-width="1"/>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+
+    {% set start_x = map["start_location"][0]*15 %}
+    {% set start_y = map["start_location"][1]*15 %}
+    <polygon  points="{{start_x+3}}, {{start_y+3}} {{start_x+3}}, {{start_y+12}} {{start_x+12}}, {{start_y+7}}" fill="black"/>
+
+    {% set end_x = map["end_location"][0]*15 %}
+    {% set end_y = map["end_location"][1]*15 %}
+    <circle cx="{{end_x+7}}" cy="{{end_y+7}}" r="5" fill="red"/>
+
+
+  </svg>
+</div>
+
+<div name="antbrain" class="ant">
+  {{ant_svg}}
+</div>
