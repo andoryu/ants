@@ -37,7 +37,7 @@ def convert_ant_to_json(ant_spec):
     for i, gene in enumerate(ant_spec['genes']):
         node_name  = 'state_{0:02}'.format(i)
         node_label = '{0:02}: {1}'.format(i, gene['action'])
-        dot.node(node_name, node_label)
+        dot.node(node_name, label=node_label, id=node_name)
 
     # write out the links labelling with view bit field
     for i, gene in enumerate(ant_spec['genes']):
@@ -46,8 +46,9 @@ def convert_ant_to_json(ant_spec):
         for j, transition in enumerate(gene['transitions']):
             dest = "state_{:02}".format(transition)
             edge_label = "{:03b}".format(j)
+            edge_id = "{}-{}".format(source,dest)
 
-            dot.edge(source, dest, label=edge_label)
+            dot.edge(source, dest, label=edge_label, id=edge_id)
 
 
     return dot.pipe().decode('UTF-8')
